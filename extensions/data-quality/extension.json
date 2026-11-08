@@ -1,0 +1,31 @@
+{
+  "protocol": "observer-extension/v1",
+  "id": "data-quality",
+  "name": "Data quality",
+  "version": "1.0.0",
+  "publisher": "Dobriy AI",
+  "license": "MIT",
+  "repository": "https://github.com/Dobriy-AI/observer-extensions",
+  "description": "Find missing labels and source references. Keep a dated report of what needs attention.",
+  "category": "Data quality",
+  "icon": "check",
+  "permissions": [
+    "project:read",
+    "reports:write"
+  ],
+  "network": [],
+  "checks": [
+    {
+      "id": "missing-labels",
+      "name": "Missing labels",
+      "description": "Typed resources without a non-empty Schema.org name, RDFS label or SKOS preferred label.",
+      "where": "?entity a ?type. FILTER(isIRI(?entity)) FILTER NOT EXISTS {?entity (schema:name|rdfs:label|skos:prefLabel) ?label. FILTER(STRLEN(STR(?label)) > 0)}"
+    },
+    {
+      "id": "missing-sources",
+      "name": "Missing source references",
+      "description": "Named, typed resources without a direct citation, source or provenance reference. Statement-level evidence may still exist.",
+      "where": "?entity a ?type. FILTER(isIRI(?entity)) ?entity (schema:name|rdfs:label|skos:prefLabel) ?label. FILTER NOT EXISTS {?entity (schema:citation|dct:source|prov:wasDerivedFrom) ?source}"
+    }
+  ]
+}

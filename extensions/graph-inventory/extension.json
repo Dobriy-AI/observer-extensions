@@ -1,0 +1,25 @@
+{
+  "protocol": "observer-extension/v1",
+  "id": "graph-inventory",
+  "name": "Graph inventory",
+  "version": "1.0.0",
+  "publisher": "Dobriy AI",
+  "license": "MIT",
+  "repository": "https://github.com/Dobriy-AI/observer-extensions",
+  "description": "See the record types in your project and save a reproducible inventory.",
+  "category": "Analysis",
+  "icon": "database",
+  "permissions": [
+    "project:read",
+    "reports:write"
+  ],
+  "network": [],
+  "checks": [
+    {
+      "id": "record-types",
+      "name": "Record types",
+      "description": "Distinct typed resources grouped by their recorded RDF class. A resource may have more than one type.",
+      "where": "?entity a ?type. FILTER(isIRI(?entity))"
+    }
+  ]
+}
